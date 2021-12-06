@@ -1,0 +1,13 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="topics">
+        <h1>Topics</h1>
+        <ul>
+            {% for topic in topics %}
+            <li><a href="">{{ topic.name }}</a> <span>{{ topic.creator.username }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

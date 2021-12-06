@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+}
+
+.body{
+    padding:15px;
+}
+
+ul {
+    list-style: none;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    background-color: #dddddd;
+    padding: 10px 20px;
+}
+
+nav > a {
+    font-weight: bold;
+    font-size: 23px;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    display:flex;
+    gap: 30px;
+}

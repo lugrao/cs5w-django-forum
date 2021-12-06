@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Generic Internet Forum{% endblock %}</title>
+        <link href="{% static 'forum/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+
+        <nav>
+            <a href="{% url 'index' %}">Generic Internet Forum</a>
+          
+            <div>
+              <ul>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href=""><strong>{{ user.username }}</strong></a>
+                    </li>
+                {% endif %}
+                <li>
+                  <a href="{% url 'index' %}">All Posts</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="">Following</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+              </ul>
+            </div>
+          </nav>
+        
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+        
+        {% block script%}
+        {% endblock %}
+    </body>
+</html>

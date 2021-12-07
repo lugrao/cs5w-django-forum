@@ -9,6 +9,13 @@
     {% if topic %}
     <section id="topic">
         <h2>{{ topic.name }}</h2>
+        {% if posts %}
+            <ul>
+            {% for post in posts %}
+                <li><a href="{% url 'post' post.id %}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
     </section>
     {% endif %}
 {% endblock %}

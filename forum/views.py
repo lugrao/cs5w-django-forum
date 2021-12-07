@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 
-from .models import User, Topic
+from .models import User, Topic, Post
 
 
 def index(request):
@@ -67,15 +67,37 @@ def topic(request, topic_name):
     try:
         topic = Topic.objects.get(name=topic_name)
     except Topic.DoesNotExist:
-        return render(request, "forum/topic.html", {"message": "This topic doesn't exist."})
-    return render(request, "forum/topic.html", {"topic": topic})
+        return render(request, "forum/topic.html", {
+            "message": "This topic doesn't exist."
+        })
+    posts = topic.posts.all()
+    return render(request, "forum/topic.html", {
+        "topic": topic,
+        "posts": posts
+    })
+
+
+def post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return render(request, "forum/post.html", {
+            "message": "This post doesn't exist."
+        })
+    comments = post.comments.all()
+    return render(request, "forum/post.html", {
+        "post": post,
+        "comments": comments
+    })
 
 
 def profile(request, username):
     try:
         profile_user = User.objects.get(username=username)
     except User.DoesNotExist:
-        return render(request, "forum/profile.html", {"message": "User non-existent."})
+        return render(request, "forum/profile.html", {
+            "message": "User non-existent."
+        })
 
     topics_following = profile_user.topics_following.all()
     return render(request, "forum/profile.html", {

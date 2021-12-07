@@ -1,0 +1,29 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if post %}
+        <section id="post">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+        </section>
+    {% endif %}
+    
+    {% if comments %}
+        <hr>
+        <section id="comments">
+            <h3>Comments</h3>
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <p><span><b>{{ comment.author.username }}</b></span> {{ comment.content }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endblock %}

@@ -100,7 +100,24 @@ def profile(request, username):
         })
 
     topics_following = profile_user.topics_following.all()
+    users_following = profile_user.users_following.all()
     return render(request, "forum/profile.html", {
         "profile_user": profile_user,
-        "topics_following": topics_following
+        "topics_following": topics_following,
+        "users_following": users_following
+    })
+
+
+def following_topics(request):
+    return render(request, "forum/following-topics.html")
+
+
+def following_people(request):
+    return render(request, "forum/following-people.html")
+
+
+def all_posts(request):
+    posts = Post.objects.all()
+    return render(request, "forum/all-posts.html", {
+        "posts": posts
     })

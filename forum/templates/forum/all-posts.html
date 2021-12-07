@@ -1,0 +1,22 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/all-posts.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    {% if posts %}
+        <div id="topics">
+            <h1>All posts</h1>
+            <ul>
+                {% for post in posts %}
+                    <li class="post">
+                        <a href="{% url 'post' post.id %}">{{ post.title }}</a> <span>by <b><a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></span>
+                        <p>{{ post.content }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p><b>No posts</b> yet.</p>
+    {% endif %}
+{% endblock %}

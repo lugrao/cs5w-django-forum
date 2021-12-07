@@ -5,26 +5,24 @@
     <head>
         <title>{% block title %}Generic Internet Forum{% endblock %}</title>
         <link href="{% static 'forum/styles.css' %}" rel="stylesheet">
-        <link href="{% static 'forum/topics.css' %}" rel="stylesheet">
+        {% block css %}
+        {% endblock %}
     </head>
     <body>
 
         <nav>
-            <a href="{% url 'index' %}">Generic Internet Forum</a>
-          
             <div>
-              <ul>
-                {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'profile' user.username %}"><strong>{{ user.username }}</strong></a>
-                    </li>
-                {% endif %}
+                <a id="site-title" href="{% url 'index' %}">GENERIC INTERNET FORUM</a>
+                <ul>
                 <li>
-                  <a href="{% url 'index' %}">All Posts</a>
+                    <a href="{% url 'all_posts' %}">All Posts</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="">Following</a>
+                        <a href="{% url 'following_topics' %}">Following</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'profile' user.username %}">Profile</a>
                     </li>
                     <li>
                         <a href="{% url 'logout' %}">Log Out</a>
@@ -37,8 +35,11 @@
                         <a href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
-              </ul>
+                </ul>
             </div>
+            {% if user.is_authenticated %}
+                <small>Logged in as <strong>{{ user.username }}</strong></small>
+            {% endif %}
           </nav>
         
         <div class="body">
@@ -46,7 +47,7 @@
             {% endblock %}
         </div>
         
-        {% block script%}
+        {% block script %}
         {% endblock %}
     </body>
 </html>

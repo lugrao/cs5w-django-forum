@@ -1,0 +1,32 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/following.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <div id="links">
+            <ul>
+                <li><a href="{% url 'following_topics' %}"><b>Topics</b></a></li>
+                <li><a href="{% url 'following_people' %}">People</a></li>
+            </ul>
+        </div>
+
+        {% if topics %}
+            <div id="topics">
+                <h1>Posts from topics you follow</h1>
+                <ul>
+                    {% for topic in topics %}
+                    <li><a href="{% url 'topic' topic.name %}">{{ topic.name }}</a> <span class="username">{{ topic.creator.username }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {%  else %}
+            <p>You don't follow <b>any topic</b> yet.</p>
+        {% endif %}
+    {% else%}
+            <p>You must be logged in to view things you follow.</p>
+    {% endif %}
+{% endblock %}

@@ -1,33 +1,43 @@
 body {
-    margin: 0;
-    font-family: sans-serif;
+  margin: 0;
+  font-family: sans-serif;
 }
 
-.body{
-    padding:15px;
+.body {
+  padding: 15px;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 nav {
-    display: flex;
-    align-items: center;
-    background-color: #dddddd;
-    padding: 10px 20px;
+  background-color: #dddddd;
+  padding: 10px 20px;
 }
 
-nav > a {
-    font-weight: bold;
-    font-size: 23px;
+nav > div {
+  display: flex;
+  align-items: center;
+}
+
+#site-title {
+  font-weight: bold;
+  font-size: 20px;
 }
 
 nav a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 nav ul {
-    display:flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
+}
+
+small {
+}
+
+a:visited {
+  color: blue;
 }

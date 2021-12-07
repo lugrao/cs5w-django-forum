@@ -8,17 +8,28 @@
 
     {% if profile_user %}
     <section id="user">
-        <h1>{{ profile_user.username }}</h1>
+        <h1>{{ profile_user.username }}'s profile</h1>
 
         {% if topics_following %}
-            {% for topic in topics_following%}
             <div id="topics">
-                <h2>Topics following:</h2>
+                <h2>Topics you follow</h2>
                 <ul>
-                    <li><a href="{% url 'topic' topic.following.name %}">{{ topic.following.name }}</a></li>
+                {% for topic in topics_following%}
+                            <li><a href="{% url 'topic' topic.following.name %}">{{ topic.following.name }}</a></li>
+                {% endfor %}
                 </ul>
             </div>
-            {% endfor %}
+        {% endif %}
+
+        {% if users_following%}
+            <div id="users">
+                <h2>People you follow</h2>
+                <ul>
+                    {% for user in users_following %}
+                        <li>{{ user.following.username }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
 
         </ul>

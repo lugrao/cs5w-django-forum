@@ -9,7 +9,7 @@ class User(AbstractUser):
 class Topic(models.Model):
     creator = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="topics")
-    name = models.TextField(max_length=120)
+    name = models.TextField(max_length=120, unique=True)
     description = models.TextField(max_length=1000)
     timestamp = models.DateTimeField(auto_now_add=True)
 

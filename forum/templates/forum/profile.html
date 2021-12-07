@@ -1,0 +1,27 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if profile_user %}
+    <section id="user">
+        <h1>{{ profile_user.username }}</h1>
+
+        {% if topics_following %}
+            {% for topic in topics_following%}
+            <div id="topics">
+                <h2>Topics following:</h2>
+                <ul>
+                    <li><a href="{% url 'topic' topic.following.name %}">{{ topic.following.name }}</a></li>
+                </ul>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        </ul>
+    </section>
+    {% endif %}
+{% endblock %}

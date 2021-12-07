@@ -6,7 +6,7 @@
         <h1>Topics</h1>
         <ul>
             {% for topic in topics %}
-            <li><a href="">{{ topic.name }}</a> <span>{{ topic.creator.username }}</span></li>
+            <li><a href="{% url 'topic' topic.name %}">{{ topic.name }}</a> <span class="username">{{ topic.creator.username }}</span></li>
             {% endfor %}
         </ul>
     </div>

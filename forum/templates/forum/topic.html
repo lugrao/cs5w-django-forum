@@ -1,0 +1,14 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if topic %}
+    <section id="topic">
+        <h2>{{ topic.name }}</h2>
+    </section>
+    {% endif %}
+{% endblock %}

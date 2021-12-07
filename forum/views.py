@@ -61,3 +61,24 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "forum/register.html")
+
+
+def topic(request, topic_name):
+    try:
+        topic = Topic.objects.get(name=topic_name)
+    except Topic.DoesNotExist:
+        return render(request, "forum/topic.html", {"message": "This topic doesn't exist."})
+    return render(request, "forum/topic.html", {"topic": topic})
+
+
+def profile(request, username):
+    try:
+        profile_user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return render(request, "forum/profile.html", {"message": "User non-existent."})
+
+    topics_following = profile_user.topics_following.all()
+    return render(request, "forum/profile.html", {
+        "profile_user": profile_user,
+        "topics_following": topics_following
+    })

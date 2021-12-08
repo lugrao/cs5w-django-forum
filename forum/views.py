@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 
-from .models import User, Topic, Post
+from .models import User, Topic, Post, Follow_User, Follow_Topic
 
 
 def index(request):
@@ -99,12 +99,40 @@ def profile(request, username):
             "message": "User non-existent."
         })
 
+    # Check if authenticated user is a follower
+    user_is_follower = None
+    if request.user.is_authenticated:
+        user_is_follower = bool(Follow_User.objects.filter(
+            follower=request.user.id, following=profile_user.id).all())
+
+    # Handle follow and unfollow
+    if request.method == "POST":
+        try:
+            request.POST["follow"]
+            new_follow = Follow_User(
+                follower=request.user, following=profile_user)
+            new_follow.save()
+            return HttpResponseRedirect(request.path_info)
+        except KeyError:
+            pass
+
+        try:
+            request.POST["unfollow"]
+            follow = Follow_User.objects.get(
+                follower=request.user, following=profile_user)
+            follow.delete()
+            return HttpResponseRedirect(request.path_info)
+        except KeyError:
+            pass
+
     topics_following = profile_user.topics_following.all()
     users_following = profile_user.users_following.all()
     return render(request, "forum/profile.html", {
         "profile_user": profile_user,
         "topics_following": topics_following,
-        "users_following": users_following
+        "users_following": users_following,
+        "user_is_follower": user_is_follower,
+
     })
 
 

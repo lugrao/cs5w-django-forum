@@ -24,9 +24,9 @@
                 </ul>
             </div>
         {%  else %}
-            <p>You don't follow <b>any topic</b> yet.</p>
+            <p class="message">You don't follow <b>any topic</b> yet.</p>
         {% endif %}
     {% else%}
-            <p>You must be logged in to view things you follow.</p>
+            <p class="message">You must be <b>logged in</b> to view things you follow.</p>
     {% endif %}
 {% endblock %}

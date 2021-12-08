@@ -1,10 +1,22 @@
+#links, #people, #topics {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 #links ul {
     display:flex;
-    gap: 10px;
+    gap: 20px;
     padding: 0;
+    justify-content: center;
 }
 
 a {
     text-decoration: none;
 }
+
+.message {
+    text-align: center;
+}
+
 

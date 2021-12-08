@@ -1,0 +1,18 @@
+#user {
+    text-align: center;
+}
+
+#user-name {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    justify-content: center;
+}
+
+.follow-unfollow input {
+    border: none;
+    background-color: white;
+    color: blue;
+    font-size: 14px;
+    cursor: pointer;
+}

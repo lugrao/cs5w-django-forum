@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <title>{% block title %}Generic Internet Forum{% endblock %}</title>
-        <link href="{% static 'forum/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'forum/layout.css' %}" rel="stylesheet">
         {% block css %}
         {% endblock %}
     </head>
@@ -14,33 +14,33 @@
             <div>
                 <a id="site-title" href="{% url 'index' %}">GENERIC INTERNET FORUM</a>
                 <ul>
-                <li>
-                    <a href="{% url 'all_posts' %}">All Posts</a>
-                </li>
-                {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'following_topics' %}">Following</a>
+                        <a href="{% url 'all_posts' %}">All Posts</a>
                     </li>
-                    <li>
-                        <a href="{% url 'profile' user.username %}">Profile</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'following_topics' %}">Following</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'profile' user.username %}">Profile</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             {% if user.is_authenticated %}
-                <small>Logged in as <strong>{{ user.username }}</strong></small>
+                <p id="logged-in-as">Logged in as <strong>{{ user.username }}</strong></p>
             {% endif %}
-          </nav>
+        </nav>
         
         <div class="body">
             {% block body %}

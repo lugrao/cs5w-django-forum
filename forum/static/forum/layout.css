@@ -5,20 +5,25 @@ body {
 
 .body {
   padding: 15px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 ul {
   list-style: none;
+  padding: 0;
 }
 
 nav {
   background-color: #dddddd;
-  padding: 10px 20px;
+  padding: 10px 35px;
 }
 
 nav > div {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 #site-title {
@@ -35,7 +40,11 @@ nav ul {
   gap: 30px;
 }
 
-small {
+#logged-in-as {
+  font-size: 13px;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
 }
 
 a:visited {

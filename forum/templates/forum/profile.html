@@ -1,5 +1,8 @@
 {% extends "forum/layout.html" %}
 {% load static %}
+{% block css %}
+    <link href="{% static 'forum/profile.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
     {% if message %}
@@ -8,8 +11,20 @@
 
     {% if profile_user %}
     <section id="user">
-        <h1>{{ profile_user.username }}'s profile</h1>
-
+        <div id="user-name">
+            <h1>{{ profile_user.username }}'s profile </h1>
+            {% if user.is_authenticated and user.id != profile_user.id %}
+                <form class="follow-unfollow" action="{% url 'profile' profile_user.username %}" method="post">
+                    {% csrf_token %}
+                    {% if user_is_follower %}
+                        <input name="unfollow" type="submit" value="Unfollow">
+                    {% else %}
+                        <input name="follow" type="submit" value="Follow">
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+        <hr>
         {% if topics_following %}
             <div id="topics">
                 <h2>Topics you follow</h2>
@@ -26,7 +41,7 @@
                 <h2>People you follow</h2>
                 <ul>
                     {% for user in users_following %}
-                        <li>{{ user.following.username }}</li>
+                        <li> <a href="{% url 'profile' user.following.username %}">{{ user.following.username }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

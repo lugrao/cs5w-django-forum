@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.urls import reverse
 
 from .models import User, Topic, Post, Follow_User, Follow_Topic
+from .util import parse_posts
 
 
 def index(request):
@@ -141,7 +142,15 @@ def following_topics(request):
 
 
 def following_people(request):
-    return render(request, "forum/following-people.html")
+    user = User.objects.get(id=request.user.id)
+    users_following = user.users_following.all()
+    all_posts = Post.objects.filter(
+        author__in=[follow.following for follow in users_following]).order_by("-timestamp").all()
+    posts = parse_posts(all_posts, request.user)
+    # print(len(all_posts[0].comments.all()))
+    return render(request, "forum/following-people.html", {
+        "posts": posts
+    })
 
 
 def all_posts(request):

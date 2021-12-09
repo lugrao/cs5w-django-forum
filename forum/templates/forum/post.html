@@ -1,5 +1,8 @@
 {% extends "forum/layout.html" %}
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'forum/post.css' %}">
+{% endblock %}
 
 {% block body %}
     {% if message %}
@@ -8,7 +11,7 @@
 
     {% if post %}
         <section id="post">
-            <h2>{{ post.title }}</h2>
+            <h2 id="post-title">{{ post.title }}</h2>
             <p>{{ post.content }}</p>
         </section>
     {% endif %}

@@ -1,0 +1,8 @@
+#post, #comments{
+    max-width: 600px;
+}
+
+h2 {
+    text-align: left;
+}
+

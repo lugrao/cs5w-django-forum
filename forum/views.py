@@ -167,3 +167,44 @@ def all_posts(request):
     return render(request, "forum/all-posts.html", {
         "posts": posts
     })
+
+
+def new_post(request, topic_name):
+    # Check if topic exists
+    try:
+        topic = Topic.objects.get(name=topic_name)
+    except Topic.DoesNotExist:
+        return render(request, "forum/new-post.html")
+
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            # Validate form
+            title = request.POST["title"]
+            if not title or len(title) > 120:
+                return render(request, "forum/new-post.html", {
+                    "message": "Title must have more than 0 characters and less than 121.",
+                    "topic_name": topic_name
+                })
+            content = request.POST["content"]
+            if not content or len(content) > 5000:
+                return render(request, "forum/new-post.html", {
+                    "message": "Content must have more than 0 characters and less than 5001.",
+                    "topic_name": topic_name
+                })
+
+            # Save new post
+            author = User.objects.get(id=request.user.id)
+            new_post = Post(topic=topic, author=author,
+                            title=title, content=content)
+            new_post.save()
+            # id = Post.objects.get()
+            # return HttpResponseRedirect(reverse("post", kwargs={"post_id": 1}))
+            return HttpResponseRedirect(reverse("topic", kwargs={"topic_name": topic_name}))
+        else:
+            return render(request, "forum/new-post.html", {
+                "message": "You must be logged in to post something.",
+                "topic_name": topic_name
+            })
+    return render(request, "forum/new-post.html", {
+        "topic_name": topic_name
+    })

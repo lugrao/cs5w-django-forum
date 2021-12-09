@@ -9,7 +9,7 @@ h1, h2 {
 
 .body {
   padding: 15px;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -57,4 +57,9 @@ a {
 
 a:visited {
   color: blue;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid lightgray;
 }

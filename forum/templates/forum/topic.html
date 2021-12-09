@@ -1,9 +1,9 @@
 {% extends "forum/layout.html" %}
 {% load static %}
 {% block css %}
+    <link href="{% static 'forum/topic.css' %}" rel="stylesheet">
     <link href="{% static 'forum/posts.css' %}" rel="stylesheet">
 {% endblock %}
-
 
 {% block body %}
     {% if message %}
@@ -11,8 +11,11 @@
     {% endif %}
 
     {% if posts %}
-            <div id="topics">
+            <div id="topic">
                 <h1>{{ topic.name }}</h1>
+                {% if user.is_authenticated%}
+                    <p><a href="{% url 'new_post' topic.name %}">New post</a></p>
+                {% endif %}
                 <ul>
                     {% for post in posts %}
                         <li class="post">

@@ -1,7 +1,7 @@
 {% extends "forum/layout.html" %}
 {% load static %}
 {% block css %}
-    <link href="{% static 'forum/register-login.css' %}" rel="stylesheet">
+    <link href="{% static 'forum/form.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
     <h2>Register</h2>
 
     {% if message %}
-        <div>{{ message }}</div>
+        <p class="error">{{ message }}</p>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">

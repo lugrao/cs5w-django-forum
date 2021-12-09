@@ -13,4 +13,5 @@ urlpatterns = [
     path("all-posts", views.all_posts, name="all_posts"),
     path("following/topics", views.following_topics, name="following_topics"),
     path("following/people", views.following_people, name="following_people"),
+    path("new-post/<str:topic_name>", views.new_post, name="new_post")
 ]

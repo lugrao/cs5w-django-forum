@@ -14,12 +14,17 @@
             </ul>
         </div>
 
-        {% if topics %}
+        {% if posts %}
             <div id="topics">
                 <h1>Posts from topics you follow</h1>
                 <ul>
-                    {% for topic in topics %}
-                    <li><a href="{% url 'topic' topic.name %}">{{ topic.name }}</a> <span class="username">{{ topic.creator.username }}</span></li>
+                    {% for post in posts %}
+                        <li class="post">
+                            <a class="topic-name" href="{% url 'topic' post.topic.name %}">{{ post.topic.name }}</a>
+                            <a href="{% url 'post' post.id %}">{{ post.title }}</a> <span>by <b><a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></b></span>
+                            <p>{{ post.content }}</p>
+                            <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>

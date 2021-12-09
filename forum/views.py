@@ -138,7 +138,14 @@ def profile(request, username):
 
 
 def following_topics(request):
-    return render(request, "forum/following-topics.html")
+    user = User.objects.get(id=request.user.id)
+    topics_following = user.topics_following.all()
+    all_posts = Post.objects.filter(
+        topic__in=[follow.following for follow in topics_following]).order_by("-timestamp").all()
+    posts = parse_posts(all_posts, request.user)
+    return render(request, "forum/following-topics.html", {
+        "posts": posts
+    })
 
 
 def following_people(request):
@@ -154,7 +161,8 @@ def following_people(request):
 
 
 def all_posts(request):
-    posts = Post.objects.all()
+    all_posts = Post.objects.all()
+    posts = parse_posts(all_posts, request.user)
     return render(request, "forum/all-posts.html", {
         "posts": posts
     })

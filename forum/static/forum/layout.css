@@ -47,6 +47,11 @@ nav ul {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: blue;
+}
+
 a:visited {
   color: blue;
 }

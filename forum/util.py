@@ -7,6 +7,7 @@ def parse_posts(all_posts, user):
             # liked = bool(post.likes.filter(liked_by=user.id))
         posts.append({
             "id": post.id,
+            "topic": post.topic,
             "author": post.author,
             "title": post.title,
             "content": post.content,

@@ -3,6 +3,10 @@ body {
   font-family: sans-serif;
 }
 
+h1, h2 {
+  text-align: center;
+}
+
 .body {
   padding: 15px;
   max-width: 800px;
@@ -15,15 +19,13 @@ ul {
 }
 
 nav {
-  background-color: #dddddd;
+  background-color: #f0f0f0;
   padding: 10px 35px;
 }
 
 nav > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
+  text-align: center;
+  padding-top: 13px;
 }
 
 #site-title {
@@ -38,6 +40,7 @@ nav a {
 nav ul {
   display: flex;
   gap: 30px;
+  justify-content: center;
 }
 
 #logged-in-as {

@@ -10,7 +10,7 @@
             <h1>Topics</h1>
             <ul>
                 {% for topic in topics %}
-                <li><a href="{% url 'topic' topic.name %}">{{ topic.name }}</a> <span class="username">{{ topic.creator.username }}</span></li>
+                <li><a href="{% url 'topic' topic.name %}">{{ topic.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

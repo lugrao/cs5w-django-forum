@@ -71,7 +71,8 @@ def topic(request, topic_name):
         return render(request, "forum/topic.html", {
             "message": "This topic doesn't exist."
         })
-    posts = topic.posts.all()
+    all_posts = topic.posts.all()
+    posts = parse_posts(all_posts, request.user)
     return render(request, "forum/topic.html", {
         "topic": topic,
         "posts": posts

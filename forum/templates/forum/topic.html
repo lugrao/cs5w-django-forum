@@ -1,21 +1,28 @@
 {% extends "forum/layout.html" %}
 {% load static %}
+{% block css %}
+    <link href="{% static 'forum/posts.css' %}" rel="stylesheet">
+{% endblock %}
+
 
 {% block body %}
     {% if message %}
-        <p>{{ message }}</p>
+        <p class="message">{{ message }}</p>
     {% endif %}
 
-    {% if topic %}
-    <section id="topic">
-        <h2>{{ topic.name }}</h2>
-        {% if posts %}
-            <ul>
-            {% for post in posts %}
-                <li><a href="{% url 'post' post.id %}">{{ post.title }}</a></li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    </section>
+    {% if posts %}
+            <div id="topics">
+                <h1>{{ topic.name }}</h1>
+                <ul>
+                    {% for post in posts %}
+                        <li class="post">
+                            <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span>
+                            <p>{{ post.content }}</p>
+                            <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {%  else %}
     {% endif %}
 {% endblock %}

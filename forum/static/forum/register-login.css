@@ -1,0 +1,26 @@
+form {
+    margin: 0 auto;
+    max-width: 400px;
+    display: grid;
+    gap: 7px;
+}
+
+p {
+    text-align: center;
+}
+
+input {
+    padding: 5px;
+}
+
+.submit-button {
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+.submit-button:hover {
+    background-color: #3d3dff;
+}

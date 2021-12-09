@@ -1,4 +1,8 @@
 {% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/register-login.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
 
@@ -10,15 +14,11 @@
 
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <div>
-            <input autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="Password">
-        </div>
-        <input type="submit" value="Login">
+        <input autofocus type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input class="submit-button" type="submit" value="Login">
     </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
 
 {% endblock %}

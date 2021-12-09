@@ -1,12 +1,12 @@
-h1 {
-  margin: 0 auto;
+.message {
   text-align: center;
 }
 
 .post {
+  text-align: start;
   border: 1px solid lightgray;
-  padding: 10px;
-  max-width: 600px;
+  padding: 15px 25px;
+  max-width: 550px;
   margin: 7px auto;
 }
 
@@ -17,7 +17,11 @@ h1 {
   padding-bottom: 6px;
 }
 
-span {
+.post-title {
+    font-weight: bold;
+}
+
+.post-by {
   font-size: 12px;
 }
 

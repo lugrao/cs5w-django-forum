@@ -5,14 +5,15 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.urls import reverse
 
 from .models import User, Topic, Post, Follow_User, Follow_Topic
-from .util import parse_posts
+from .util import parse_posts, parse_topics
 
 
 def index(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("following_topics"))
-    else:
-        return HttpResponseRedirect(reverse("all_posts"))
+    all_topics = Topic.objects.all()
+    topics = parse_topics(all_topics)
+    return render(request, "forum/index.html", {
+        "topics": topics
+    })
 
 
 def login_view(request):

@@ -1,3 +1,45 @@
 #topics {
-    text-align: center;
+  text-align: center;
+}
+
+.topic-container {
+  margin: 0 auto;
+  max-width: 400px;
+  border-top: 1px solid lightgray;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+
+.topic-container div {
+  min-width: 200px;
+}
+
+.topic-title {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.topic-description {
+  margin: 0;
+  padding-top: 5px;
+  font-size: 14px;
+  color: black;
+}
+
+.topic-stats p {
+  padding-left: 90px;
+  margin: 2px;
+  font-size: 13px;
+  color: #5e5e5e;
+}
+
+@media (max-width: 450px) {
+  .topic-container div {
+    width: 50%;
+  }
+  .topic-stats p {
+    padding-left: 7%;
+  }
 }

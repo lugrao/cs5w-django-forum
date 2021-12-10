@@ -1,0 +1,28 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/index.css' %}" rel="stylesheet">
+    <link href="{% static 'forum/posts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if topics %}
+        <div id="topics">
+            <h1>Topics</h1>
+            <ul>
+                {% for topic in topics %}
+                    <li class="topic-container">
+                        <div>
+                            <a class="topic-title" href="{% url 'topic' topic.name %}">{{ topic.name }}</a>
+                            <p class="topic-description">{{ topic.description }}</p>
+                        </div>
+                        <div class="topic-stats">
+                            <p>{{ topic.number_of_posts }} post{% if topic.number_of_posts != 1 %}s{% endif %}</p>
+                            <p>{{ topic.number_of_followers }} follower{% if topic.number_of_followers != 1 %}s{% endif %}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

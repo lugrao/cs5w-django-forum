@@ -10,6 +10,10 @@
   margin: 7px auto;
 }
 
+.post p {
+  white-space: pre;
+}
+
 .topic-name {
   display: block;
   font-size: 12px;
@@ -18,7 +22,7 @@
 }
 
 .post-title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .post-by {
@@ -34,7 +38,6 @@
   font-size: 11px;
   font-weight: bold;
 }
-
 
 .edit-delete {
   margin-bottom: 0;

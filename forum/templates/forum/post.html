@@ -26,11 +26,15 @@
             {% if comment_error %}
                 <p class="error comment-error">{{ comment_error }}</p>
             {% endif %}
-            <form action="{% url 'post' post.id %}" method="post">
-                {% csrf_token %}
-                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Your comment"></textarea>
-                <input class="submit-button" type="submit" value="Post">
-            </form>
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'post' post.id %}" method="post">
+                    {% csrf_token %}
+                    <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Your comment"></textarea>
+                    <input class="submit-button" type="submit" value="Post">
+                </form>
+            {% endif %}
+            
             <ul class="comments-container">
                 {% for comment in comments %}
                     <li class="comment">

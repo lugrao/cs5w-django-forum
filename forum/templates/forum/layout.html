@@ -15,10 +15,6 @@
                 <a id="site-title" href="{% url 'index' %}">GENERIC INTERNET FORUM</a>
                 <ul>
                     <li>
-                        <a href="{% url 'index' %}">Home</a>
-                    </li>
-
-                    <li>
                         <a href="{% url 'all_posts' %}">All Posts</a>
                     </li>
                     {% if user.is_authenticated %}

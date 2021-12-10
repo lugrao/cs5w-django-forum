@@ -22,6 +22,12 @@
                             <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span>
                             <p>{{ post.content }}</p>
                             <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
+                            {% if user.is_authenticated and post.author.id == user.id %}
+                                <span class="edit-delete">
+                                    <a href="">Edit</a>
+                                    <a href="">Delete</a>
+                                </span>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>

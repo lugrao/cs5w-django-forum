@@ -9,10 +9,10 @@ from .util import parse_posts
 
 
 def index(request):
-    topics = Topic.objects.all()
-    return render(request, "forum/index.html", {
-        "topics": topics
-    })
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("following_topics"))
+    else:
+        return HttpResponseRedirect(reverse("all_posts"))
 
 
 def login_view(request):
@@ -197,8 +197,6 @@ def new_post(request, topic_name):
             new_post = Post(topic=topic, author=author,
                             title=title, content=content)
             new_post.save()
-            # id = Post.objects.get()
-            # return HttpResponseRedirect(reverse("post", kwargs={"post_id": 1}))
             return HttpResponseRedirect(reverse("topic", kwargs={"topic_name": topic_name}))
         else:
             return render(request, "forum/new-post.html", {

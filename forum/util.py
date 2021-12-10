@@ -21,7 +21,7 @@ def parse_posts(all_posts, user):
     return posts
 
 
-def parse_topics(all_topics):
+def parse_topics(all_topics, user):
     topics = []
 
     for topic in all_topics:

@@ -72,11 +72,40 @@ def topic(request, topic_name):
         return render(request, "forum/topic.html", {
             "message": "This topic doesn't exist."
         })
+
     all_posts = topic.posts.all()
     posts = parse_posts(all_posts, request.user)
+
+    # Check if authenticated user is a follower
+    user_is_follower = None
+    if request.user.is_authenticated:
+        user_is_follower = bool(Follow_Topic.objects.filter(
+            follower=request.user.id, following=topic.id).all())
+
+    # Handle follow and unfollow
+    if request.method == "POST":
+        try:
+            request.POST["follow"]
+            new_follow = Follow_Topic(
+                follower=request.user, following=topic)
+            new_follow.save()
+            return HttpResponseRedirect(request.path_info)
+        except KeyError:
+            pass
+
+        try:
+            request.POST["unfollow"]
+            follow = Follow_Topic.objects.get(
+                follower=request.user, following=topic)
+            follow.delete()
+            return HttpResponseRedirect(request.path_info)
+        except KeyError:
+            pass
+
     return render(request, "forum/topic.html", {
         "topic": topic,
-        "posts": posts
+        "posts": posts,
+        "user_is_follower": user_is_follower
     })
 
 

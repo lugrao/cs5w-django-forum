@@ -12,7 +12,19 @@
 
     {% if posts %}
             <div id="topic">
-                <h1>{{ topic.name }}</h1>
+                <div id="topic-name">
+                    <h1>{{ topic.name }}</h1>
+                    {% if user.is_authenticated %}
+                        <form class="follow-unfollow" action="{% url 'topic' topic.name %}" method="post">
+                            {% csrf_token %}
+                            {% if user_is_follower %}
+                                <input name="unfollow" type="submit" value="Unfollow">
+                            {% else %}
+                                <input name="follow" type="submit" value="Follow">
+                            {% endif %}
+                        </form>
+                    {% endif %}
+                </div>
                 {% if user.is_authenticated%}
                     <p><a href="{% url 'new_post' topic.name %}">New post</a></p>
                 {% endif %}

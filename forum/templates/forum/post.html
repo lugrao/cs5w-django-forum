@@ -2,6 +2,7 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'forum/post.css' %}">
+    <link rel="stylesheet" href="{% static 'forum/form.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -11,7 +12,9 @@
 
     {% if post %}
         <section id="post">
-            <h2 id="post-title">{{ post.title }}</h2>
+            <p id="topic-name">{{ post.topic.name }}</p>
+            <h1 id="post-title">{{ post.title }} <span class="post-by">by <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span></h1>
+            <p class="post-timestamp">{{ post.timestamp }}</p>
             <p>{{ post.content }}</p>
         </section>
     {% endif %}
@@ -20,10 +23,20 @@
         <hr>
         <section id="comments">
             <h3>Comments</h3>
-            <ul>
+            {% if comment_error %}
+                <p class="error comment-error">{{ comment_error }}</p>
+            {% endif %}
+            <form action="{% url 'post' post.id %}" method="post">
+                {% csrf_token %}
+                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Your comment"></textarea>
+                <input class="submit-button" type="submit" value="Post">
+            </form>
+            <ul class="comments-container">
                 {% for comment in comments %}
-                    <li>
-                        <p><span><b>{{ comment.author.username }}</b></span> {{ comment.content }}</p>
+                    <li class="comment">
+                        <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                        <p>{{ comment.content }}</p>
+                        <p class="comment-timestamp">{{ comment.timestamp }}</p>
                     </li>
                 {% endfor %}
             </ul>

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 
-from .models import User, Topic, Post, Follow_User, Follow_Topic
+from .models import User, Topic, Post, Comment, Follow_User, Follow_Topic
 from .util import parse_posts, parse_topics
 
 
@@ -87,7 +87,28 @@ def post(request, post_id):
         return render(request, "forum/post.html", {
             "message": "This post doesn't exist."
         })
+
     comments = post.comments.all()
+
+    # Handle comment post
+    if request.method == "POST":
+        try:
+            comment = request.POST["comment"]
+            if len(comment) > 0 and len(comment) < 5001:
+                # Save comment
+                user = User.objects.get(id=request.user.id)
+                post = Post.objects.get(id=post_id)
+                new_comment = Comment(post=post, author=user, content=comment,)
+                new_comment.save()
+            else:
+                return render(request, "forum/post.html", {
+                    "post": post,
+                    "comments": comments,
+                    "comment_error": "Comment must have more than 0 characters and less than 5001."
+                })
+        except KeyError:
+            return HttpResponseRedirect(request.path_info)
+
     return render(request, "forum/post.html", {
         "post": post,
         "comments": comments

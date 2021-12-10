@@ -9,7 +9,7 @@
     <h2>Login</h2>
 
     {% if message %}
-        <p class="error">{{ message }}</p>
+        <p class="error text-centered">{{ message }}</p>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post">
@@ -19,6 +19,6 @@
         <input class="submit-button" type="submit" value="Login">
     </form>
 
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
+    <p class="text-centered">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
 
 {% endblock %}

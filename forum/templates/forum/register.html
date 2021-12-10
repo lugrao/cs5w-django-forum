@@ -9,7 +9,7 @@
     <h2>Register</h2>
 
     {% if message %}
-        <p class="error">{{ message }}</p>
+        <p class="error text-centered">{{ message }}</p>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">
@@ -21,6 +21,6 @@
         <input class="submit-button" type="submit" value="Register">
     </form>
 
-    <p>Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
+    <p class="text-centered">Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
 
 {% endblock %}

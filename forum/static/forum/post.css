@@ -1,8 +1,61 @@
-#post, #comments{
-    max-width: 600px;
+hr {
+  margin: 40px 0;
 }
 
-h2 {
-    text-align: left;
+.post-by {
+  font-size: 17px;
+  font-weight: normal;
 }
 
+.post-by a {
+  font-weight: bold;
+}
+
+.post-timestamp {
+  font-size: 12px;
+  color: gray;
+  margin: 0;
+  text-align: center;
+}
+
+.comments-container {
+  max-width: 400px;
+  margin: 30px auto 0;
+}
+
+.comment {
+  border-top: 1px solid #e6e6e6;
+  padding: 10px 0;
+}
+
+.comment a {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.comment p {
+  margin: 5px 0;
+  text-align: start;
+}
+
+.comment-error {
+  font-size: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 6px;
+}
+
+.comment-timestamp {
+  font-size: 11px;
+  color: gray;
+}
+
+#topic-name {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0 0;
+}
+
+#post-title {
+  margin: 5px;
+}

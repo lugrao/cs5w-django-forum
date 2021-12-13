@@ -1,18 +1,21 @@
 {% block posts %}
     <ul>
+        {% csrf_token %}
         {% for post in posts %}
-            <li class="post">
+            <li class="post" id="post-{{ post.id }}">
                 {% if not topic %}
                     <a class="topic-name" href="{% url 'topic' post.topic.name %}">{{ post.topic.name }}</a>
                 {% endif %}
                 <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span> <span class="timestamp">{{ post.timestamp }}</span>
-                <p>{{ post.content }}</p>
+                <p class="post-content">{{ post.content }}</p>
                 <div>
                     <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
                     {% if user.is_authenticated and post.author.id == user.id %}
                         <span class="edit-delete">
-                            <a href="">Edit</a>
-                            <a href="">Delete</a>
+                            <button class="edit-button" data-id="{{ post.id }}">Edit</button>
+                            <button class="delete-button" data-id="{{ post.id }}">Delete</button>
+                            <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
+                            <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
                         </span>
                     {% endif %}
                 </div>                        

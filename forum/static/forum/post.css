@@ -1,5 +1,5 @@
 hr {
-  margin: 40px 0;
+  margin: 10px 0 40px;
 }
 
 .post-by {
@@ -58,4 +58,34 @@ hr {
 
 #post-title {
   margin: 5px;
+}
+
+.post-content {
+  white-space: pre;
+  margin: 25px 0 5px;
+}
+
+.edit-delete {
+  display: flex;
+  justify-content: right;
+  padding-right: 5px;
+}
+
+.edit-delete button {
+  font-size: 12px;
+  padding: 0 5px;
+  color: blue;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.message {
+  font-weight: bold;
+  font-size: 17px;
+  text-align: center;
 }

@@ -32,4 +32,7 @@
             {% include "forum/posts.html" %}
         {% endif %}
     </div>
+    {% block script%}
+        <script src="{% static 'forum/editDeletePost.js' %}"></script>
+    {% endblock %}
 {% endblock %}

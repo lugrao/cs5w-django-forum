@@ -7,45 +7,57 @@
 
 {% block body %}
     {% if message %}
-        <p>{{ message }}</p>
+        <p class="message">{{ message }}</p>
     {% endif %}
 
     {% if post %}
-        <section id="post">
+        <section id="post-{{ post.id }}">
             <p id="topic-name">{{ post.topic.name }}</p>
             <h1 id="post-title">{{ post.title }} <span class="post-by">by <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span></h1>
             <p class="post-timestamp">{{ post.timestamp }}</p>
-            <p>{{ post.content }}</p>
+            <p class="post-content">{{ post.content }}</p>
+            {% if user.is_authenticated and post.author.id == user.id %}
+                <div class="edit-delete">
+                    <button class="edit-button" data-id="{{ post.id }}">Edit</button>
+                    <button class="delete-button" data-id="{{ post.id }}">Delete</button>
+                    <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
+                    <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
+                </div>
+            {% endif %}
+        </section>
+
+        <hr>
+
+        <section id="comments">
+            <h3>Comments</h3>
+
+            {% if comment_error %}
+                <p class="error comment-error">{{ comment_error }}</p>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'post' post.id %}" method="post">
+                    {% csrf_token %}
+                    <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Your comment"></textarea>
+                    <input class="submit-button" type="submit" value="Post">
+                </form>
+            {% endif %}
+
+            {% if comments %}
+                <ul class="comments-container">
+                    {% for comment in comments %}
+                        <li class="comment">
+                            <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                            <p>{{ comment.content }}</p>
+                            <p class="comment-timestamp">{{ comment.timestamp }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </section>
     {% endif %}
+{% endblock %}
 
-    <hr>
-
-    <section id="comments">
-        <h3>Comments</h3>
-
-        {% if comment_error %}
-            <p class="error comment-error">{{ comment_error }}</p>
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            <form action="{% url 'post' post.id %}" method="post">
-                {% csrf_token %}
-                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Your comment"></textarea>
-                <input class="submit-button" type="submit" value="Post">
-            </form>
-        {% endif %}
-
-        {% if comments %}
-            <ul class="comments-container">
-                {% for comment in comments %}
-                    <li class="comment">
-                        <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
-                        <p>{{ comment.content }}</p>
-                        <p class="comment-timestamp">{{ comment.timestamp }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </section>
+{% block script%}
+    <script src="{% static 'forum/editDeletePost.js' %}"></script>
 {% endblock %}

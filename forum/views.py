@@ -257,3 +257,54 @@ def new_post(request, topic_name):
     return render(request, "forum/new-post.html", {
         "topic_name": topic_name
     })
+
+
+def edit_post(request, post_id):
+    if request.user.is_authenticated:
+        try:
+            post = Post.objects.get(id=post_id)
+            post.content = request.POST["post-content"]
+            if post.author.id == request.user.id:
+                if not post.content:
+                    return JsonResponse({
+                        "error": "Post cannot be empty."
+                    }, status=400)
+                post.save()
+                return JsonResponse({
+                    "message": "Post updated."
+                }, status=200)
+            else:
+                return JsonResponse({
+                    "error": "Post can only be edited by its author."
+                }, status=400)
+        except Post.DoesNotExist:
+            return JsonResponse({
+                "error": "Post not found."
+            }, status=404)
+
+    return JsonResponse({
+        "error": "User must be authenticated."
+    }, status=400)
+
+
+def delete_post(request, post_id):
+    if request.user.is_authenticated:
+        try:
+            post = Post.objects.get(id=post_id)
+            if post.author.id == request.user.id:
+                post.delete()
+                return JsonResponse({
+                    "message": "Post deleted."
+                }, status=200)
+            else:
+                return JsonResponse({
+                    "error": "Post can only be deleted by its author."
+                }, status=400)
+        except Post.DoesNotExist:
+            return JsonResponse({
+                "error": "Post not found."
+            }, status=404)
+
+    return JsonResponse({
+        "error": "User must be authenticated."
+    }, status=400)

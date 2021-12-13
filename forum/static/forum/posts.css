@@ -11,12 +11,12 @@
 }
 
 .post div {
-  display:flex;
+  display: flex;
   align-items: baseline;
   justify-content: space-between;
 }
 
-.post p {
+.post-content {
   white-space: pre;
 }
 
@@ -45,12 +45,20 @@
   font-weight: bold;
 }
 
-.edit-delete a {
+.edit-delete button {
   font-size: 12px;
   padding: 0 5px;
+  color: blue;
+  background-color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .timestamp {
   font-size: 10px;
   color: gray;
+}
+
+.hidden {
+  display: none;
 }

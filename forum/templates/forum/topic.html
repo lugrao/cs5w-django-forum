@@ -25,14 +25,14 @@
             {% endif %}
         </div>
         {% if user.is_authenticated%}
-            <p><a href="{% url 'new_post' topic.name %}">New post</a></p>
+            <p class="new-post"><a href="{% url 'new_post' topic.name %}">New post</a></p>
         {% endif %}
 
         {% if posts %}    
             <ul>
                 {% for post in posts %}
                     <li class="post">
-                        <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span>
+                        <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span> <span class="timestamp">{{ post.timestamp }}</span>
                         <p>{{ post.content }}</p>
                         <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
                         {% if user.is_authenticated and post.author.id == user.id %}

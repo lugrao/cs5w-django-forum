@@ -45,3 +45,8 @@
   /* text-align: end; */
   font-size: 12px;
 }
+
+.timestamp {
+  font-size: 10px;
+  color: gray;
+}

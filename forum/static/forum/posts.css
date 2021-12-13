@@ -10,6 +10,12 @@
   margin: 7px auto;
 }
 
+.post div {
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
 .post p {
   white-space: pre;
 }
@@ -39,11 +45,9 @@
   font-weight: bold;
 }
 
-.edit-delete {
-  margin-bottom: 0;
-  float: right;
-  /* text-align: end; */
+.edit-delete a {
   font-size: 12px;
+  padding: 0 5px;
 }
 
 .timestamp {

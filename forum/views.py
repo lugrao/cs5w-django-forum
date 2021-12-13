@@ -213,7 +213,7 @@ def following_people(request):
 
 
 def all_posts(request):
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.order_by("-timestamp").all()
     posts = parse_posts(all_posts, request.user)
     return render(request, "forum/all-posts.html", {
         "posts": posts

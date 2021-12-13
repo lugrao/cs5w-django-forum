@@ -8,9 +8,7 @@
         <div id="topics">
             <h1>All posts from all topics</h1>
             <ul>
-                {% for post in posts %}
-                    {% include "forum/posts.html" %}
-                {% endfor %}
+                {% include "forum/posts.html" %}
             </ul>
         </div>
     {% else %}

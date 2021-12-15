@@ -29,7 +29,7 @@ hr {
 }
 
 .post-content {
-  white-space: pre;
+  white-space: pre-line;
   margin: 25px 0 5px;
 }
 

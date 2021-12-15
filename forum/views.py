@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
 
-from .models import User, Topic, Post, Comment, Follow_User, Follow_Topic
-from .util import parse_posts, parse_topics
+from .models import User, Topic, Post, Comment, Follow_User, Follow_Topic, Like_Post, Like_Comment
+from .util import parse_comments, parse_posts, parse_topics
 
 
 def index(request):
@@ -73,7 +73,7 @@ def topic(request, topic_name):
             "message": "This topic doesn't exist."
         })
 
-    all_posts = topic.posts.all()
+    all_posts = topic.posts.order_by("-timestamp").all()
     posts = parse_posts(all_posts, request.user)
 
     # Check if authenticated user is a follower
@@ -117,7 +117,8 @@ def post(request, post_id):
             "message": "This post doesn't exist."
         })
 
-    comments = post.comments.all()
+    all_comments = post.comments.all()
+    comments = parse_comments(all_comments, request.user)
 
     # Handle comment post
     if request.method == "POST":
@@ -308,3 +309,56 @@ def delete_post(request, post_id):
     return JsonResponse({
         "error": "User must be authenticated."
     }, status=400)
+
+
+def like(request, liked):
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+        liked_object = request.POST["liked_object"]
+
+        # Handle post like
+        if liked_object == "post":
+            post = Post.objects.get(id=request.POST["id"])
+            # Create like
+            if liked == "False":
+                if not Like_Post.objects.filter(liked_by=user, post=post).exists():
+                    like = Like_Post(post=post, liked_by=user)
+                    like.save()
+                    return JsonResponse({"message": "Like created."}, status=200)
+                return JsonResponse({"error": "Like already exists."}, status=400)
+            # Delete like
+            elif liked == "True":
+                try:
+                    like = Like_Post.objects.get(liked_by=user, post=post)
+                    like.delete()
+                except Like_Post.DoesNotExist:
+                    return JsonResponse({"message": "Like doesn't exist."}, status=400)
+                return JsonResponse({"message": "Like deleted."}, status=200)
+
+        # Handle comment like
+        elif liked_object == "comment":
+            comment = Comment.objects.get(id=request.POST["id"])
+            # Create like
+            if liked == "False":
+                comment = Comment.objects.get(id=request.POST["id"])
+                if not Like_Comment.objects.filter(liked_by=user, comment=comment).exists():
+                    like = Like_Comment(comment=comment, liked_by=user)
+                    like.save()
+                    return JsonResponse({"message": "Like created."}, status=200)
+                return JsonResponse({"error": "Like already exists."}, status=400)
+            # Delte like
+            elif liked == "True":
+                try:
+                    like = Like_Comment.objects.get(
+                        liked_by=user, comment=comment)
+                    like.delete()
+                except Like_Comment.DoesNotExist:
+                    return JsonResponse({"message": "Like doesn't exist."}, status=400)
+                return JsonResponse({"message": "Like deleted."}, status=200)
+
+        # Handle bad request
+        else:
+            return JsonResponse({"error": "Bad request."}, status=400)
+
+    # Handle user not authenticated
+    return JsonResponse({"error": "User must be signed in."}, status=400)

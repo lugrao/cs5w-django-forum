@@ -5,12 +5,27 @@
 .post {
   text-align: start;
   border: 1px solid lightgray;
-  padding: 15px 25px;
+  padding: 15px 14px;
   max-width: 550px;
   margin: 7px auto;
+  display: flex;
 }
 
-.post div {
+.post-left {
+  padding-right: 17px;
+  align-self: center;
+  text-align: center;
+}
+
+.post-left .like-number {
+  font-size: 12px;
+}
+
+.post-right {
+  width: 100%;
+}
+
+.post-right div {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -61,4 +76,8 @@
 
 .hidden {
   display: none;
+}
+
+.like-button {
+  cursor: pointer;
 }

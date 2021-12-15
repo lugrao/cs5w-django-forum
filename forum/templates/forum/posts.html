@@ -1,25 +1,53 @@
+{% load static %}
 {% block posts %}
     <ul>
         {% csrf_token %}
         {% for post in posts %}
             <li class="post" id="post-{{ post.id }}">
-                {% if not topic %}
-                    <a class="topic-name" href="{% url 'topic' post.topic.name %}">{{ post.topic.name }}</a>
-                {% endif %}
-                <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span> <span class="timestamp">{{ post.timestamp }}</span>
-                <p class="post-content">{{ post.content }}</p>
-                <div>
-                    <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
-                    {% if user.is_authenticated and post.author.id == user.id %}
-                        <span class="edit-delete">
-                            <button class="edit-button" data-id="{{ post.id }}">Edit</button>
-                            <button class="delete-button" data-id="{{ post.id }}">Delete</button>
-                            <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
-                            <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
-                        </span>
+                <div class="post-left">
+                    <span class="like">
+                        {% if user.is_authenticated %}
+                            <span class="like-button" data-id="{{ post.id }}" data-liked="{{ post.liked_by_user }}" data-likes="{{ post.likes }}" data-likedobject="post">
+                                {% if post.liked_by_user %}
+                                    ❤️
+                                {% else %}
+                                    🤍
+                                {% endif %}
+                            </span>
+                        {% else %}
+                            <span>
+                                🤍
+                            </span>
+                        {% endif %}
+                        <span class="like-number">{{ post.likes }}</span>
+                    </span>
+                </div>
+
+                <div class="post-right">
+                    {% if not topic %}
+                        <a class="topic-name" href="{% url 'topic' post.topic.name %}">{{ post.topic.name }}</a>
                     {% endif %}
-                </div>                        
+
+                    <a class="post-title" href="{% url 'post' post.id %}">{{ post.title }}</a> <span class="post-by">by <a class="username" href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span> <span class="timestamp">{{ post.timestamp }}</span>
+                    <p class="post-content">{{ post.content }}</p>
+
+                    <div>                    
+                        <a class="comment-number" href="{% url 'post' post.id %}">{{ post.comment_number }} comment{% if post.comment_number != 1 %}s{% endif %}</a>
+                        {% if user.is_authenticated and post.author.id == user.id %}
+                            <span class="edit-delete">
+                                <button class="edit-button" data-id="{{ post.id }}">Edit</button>
+                                <button class="delete-button" data-id="{{ post.id }}">Delete</button>
+                                <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
+                                <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>                                  
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'forum/editDeletePost.js' %}"></script>
+    <script src="{% static 'forum/like.js' %}"></script>
 {% endblock %}

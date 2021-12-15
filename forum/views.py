@@ -130,6 +130,7 @@ def post(request, post_id):
                 post = Post.objects.get(id=post_id)
                 new_comment = Comment(post=post, author=user, content=comment,)
                 new_comment.save()
+                return HttpResponseRedirect(request.path_info)            
             else:
                 return render(request, "forum/post.html", {
                     "post": post,

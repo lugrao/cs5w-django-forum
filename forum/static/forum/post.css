@@ -83,6 +83,12 @@ hr {
   text-align: start;
 }
 
+.comment-content {
+  white-space: pre-line;
+  overflow: auto;
+  max-width: 368.55px;
+}
+
 .comment-error {
   font-size: 14px;
   max-width: 400px;

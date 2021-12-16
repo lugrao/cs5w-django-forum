@@ -49,7 +49,7 @@
                         <li id="comment-{{ comment.id }}" class="comment">
                             <div class="comment-left">
                                 <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
-                                <p>{{ comment.content }}</p>
+                                <p class="comment-content">{{ comment.content }}</p>
                                 <p class="comment-timestamp">{{ comment.timestamp }}</p>
                             </div>
                             <div class="comment-right">

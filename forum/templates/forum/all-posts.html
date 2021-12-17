@@ -1,15 +1,10 @@
 {% extends "forum/layout.html" %}
 {% load static %}
-{% block css %}
-    <link href="{% static 'forum/posts.css' %}" rel="stylesheet">
-{% endblock %}
 {% block body %}
     {% if posts %}
         <div id="topics">
             <h1>All posts from all topics</h1>
-            <ul>
-                {% include "forum/posts.html" %}
-            </ul>
+            {% include "forum/posts.html" %}
         </div>
     {% else %}
         <p><b>No posts</b> yet.</p>

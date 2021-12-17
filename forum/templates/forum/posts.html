@@ -1,4 +1,7 @@
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'forum/posts.css' %}">
+{% endblock %}
 {% block posts %}
     <ul>
         {% csrf_token %}

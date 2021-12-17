@@ -117,6 +117,10 @@ def post(request, post_id):
             "message": "This post doesn't exist."
         })
 
+    liked_by_user = False
+    if request.user.is_authenticated:
+        liked_by_user = bool(post.likes.filter(liked_by=request.user.id))
+
     all_comments = post.comments.all()
     comments = parse_comments(all_comments, request.user)
 
@@ -130,7 +134,7 @@ def post(request, post_id):
                 post = Post.objects.get(id=post_id)
                 new_comment = Comment(post=post, author=user, content=comment,)
                 new_comment.save()
-                return HttpResponseRedirect(request.path_info)            
+                return HttpResponseRedirect(request.path_info)
             else:
                 return render(request, "forum/post.html", {
                     "post": post,
@@ -142,6 +146,8 @@ def post(request, post_id):
 
     return render(request, "forum/post.html", {
         "post": post,
+        "likes": len(post.likes.all()),
+        "liked_by_user": liked_by_user,
         "comments": comments
     })
 
@@ -211,6 +217,32 @@ def following_people(request):
     # print(len(all_posts[0].comments.all()))
     return render(request, "forum/following-people.html", {
         "posts": posts
+    })
+
+
+def liked_posts(request):
+    user = User.objects.get(id=request.user.id)
+    liked_posts = user.liked_posts.order_by("-id").all()
+    posts = []
+    for like in liked_posts:
+        posts.append(like.post)
+    posts = parse_posts(posts, request.user)
+
+    return render(request, "forum/liked-posts.html", {
+        "posts": posts
+    })
+
+
+def liked_comments(request):
+    user = User.objects.get(id=request.user.id)
+    liked_comments = user.liked_comments.order_by("-id").all()
+    comments = []
+    for like in liked_comments:
+        comments.append(like.comment)
+    comments = parse_comments(comments, request.user)
+    return render(request, "forum/liked-comments.html", {
+        "page": "liked_comments",
+        "comments": comments
     })
 
 

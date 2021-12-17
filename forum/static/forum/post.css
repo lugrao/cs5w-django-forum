@@ -33,6 +33,12 @@ hr {
   margin: 25px 0 5px;
 }
 
+.post-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
 .edit-delete {
   display: flex;
   justify-content: right;

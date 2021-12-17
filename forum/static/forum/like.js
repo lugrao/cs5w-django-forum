@@ -39,5 +39,12 @@ function like(button) {
     button.dataset.likes = likes + 1
     button.innerText = "❤️"
   }
-  document.querySelector(`#${likedObject}-${id} .like-number`).innerText = button.dataset.likes
+
+  if (button.dataset.page == "liked-comments") {
+    document.querySelector(`#${likedObject}-${id}`).classList.add("hidden")
+    return
+  }
+  
+  document.querySelector(`#${likedObject}-${id} .like-number`).innerText =
+    button.dataset.likes
 }

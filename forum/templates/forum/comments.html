@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'forum/comments.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block comments %}
+    {% csrf_token %}
+    <ul class="comments-container">
+        {% for comment in comments %}
+            <li id="comment-{{ comment.id }}" class="comment">
+                <div class="comment-left">
+                    <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                    {% if page == "liked_comments" %}<span class="comment-from">in <a href="{% url 'post' comment.post.id %}">{{ comment.post.title }}</a></span>{% endif %}
+                    <p class="comment-content">{{ comment.content }}</p>
+                    <p class="comment-timestamp">{{ comment.timestamp }}</p>
+                </div>
+                <div class="comment-right">
+                    <span class="like">
+                        {% if user.is_authenticated %}
+                            <span class="like-button" data-id="{{ comment.id }}" data-liked="{{ comment.liked_by_user }}" data-likes="{{ comment.likes }}" data-likedobject="comment" data-page="liked-comments">
+                                {% if comment.liked_by_user %}
+                                    ❤️
+                                {% else %}
+                                    🤍
+                                {% endif %}
+                            </span>
+                        {% else %}
+                            <span>
+                                🤍
+                            </span>
+                        {% endif %}
+                        <span class="like-number">{{ comment.likes }}</span>
+                    </span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block script%}
+    <script src="{% static 'forum/like.js' %}"></script>
+{% endblock %}

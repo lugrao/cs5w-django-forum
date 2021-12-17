@@ -16,14 +16,35 @@
             <h1 id="post-title">{{ post.title }} <span class="post-by">by <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></span></h1>
             <p class="post-timestamp">{{ post.timestamp }}</p>
             <p class="post-content">{{ post.content }}</p>
-            {% if user.is_authenticated and post.author.id == user.id %}
-                <div class="edit-delete">
-                    <button class="edit-button" data-id="{{ post.id }}">Edit</button>
-                    <button class="delete-button" data-id="{{ post.id }}">Delete</button>
-                    <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
-                    <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
-                </div>
-            {% endif %}
+
+            <div class="post-bottom">
+                <span class="like">
+                    {% if user.is_authenticated %}
+                        <span class="like-button" data-id="{{ post.id }}" data-liked="{{ liked_by_user }}" data-likes="{{ likes }}" data-likedobject="post">
+                            {% if liked_by_user %}
+                                ❤️
+                            {% else %}
+                                🤍
+                            {% endif %}
+                        </span>
+                    {% else %}
+                        <span>
+                            🤍
+                        </span>
+                    {% endif %}
+                    <span class="like-number">{{ likes }}</span>
+                </span>
+    
+                {% if user.is_authenticated and post.author.id == user.id %}
+                    <div class="edit-delete">
+                        <button class="edit-button" data-id="{{ post.id }}">Edit</button>
+                        <button class="delete-button" data-id="{{ post.id }}">Delete</button>
+                        <button class="save-button hidden" data-id="{{ post.id }}">Save</button>
+                        <button class="cancel-button hidden" data-id="{{ post.id }}">Cancel</button>
+                    </div>
+                {% endif %}
+            </div>
+            
         </section>
 
         <hr>

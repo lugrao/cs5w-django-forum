@@ -1,0 +1,30 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/posts.css' %}" rel="stylesheet">
+    <link href="{% static 'forum/following.css' %}" rel="stylesheet">
+    <link href="{% static 'forum/comments.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <div id="links">
+            <ul>
+                <li><a href="{% url 'liked_posts' %}">Posts</a></li>
+                <li><a href="{% url 'liked_comments' %}"><b>Comments</b></a></li>
+            </ul>
+        </div>
+        {% if comments %}
+            <h1>Comments you liked</h1>
+            {% include "forum/comments.html" %}
+        {% else %}
+            <p class="message">No likes yet.</p>
+        {% endif %}
+    {% else%}
+            <p class="message">You must be <b>logged in</b> to view things you like.</p>
+    {% endif %}
+{% endblock %}
+{% block script%}
+    <script src="{% static 'forum/like.js' %}"></script>
+{% endblock %}

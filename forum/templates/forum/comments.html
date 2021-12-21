@@ -2,12 +2,15 @@
 
 {% block css %}
     <link href="{% static 'forum/comments.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% endblock %}
 
 {% block comments %}
+
+    <!-- comments -->
     {% csrf_token %}
     <ul class="comments-container">
-        {% for comment in comments %}
+        {% for comment in page_obj %}
             <li id="comment-{{ comment.id }}" class="comment">
                 <div class="comment-left">
                     <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
@@ -36,6 +39,27 @@
             </li>
         {% endfor %}
     </ul>
+
+    <!-- paginator -->
+    {% if page_obj.paginator.num_pages > 1 %}
+        <nav id="paginator" aria-label="paginator">
+            <ul class="pagination pagination-sm justify-content-center">
+            {% for page in pages %}
+                {% if page_obj.number == page %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{ page }}
+                        <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+
 {% endblock %}
 
 {% block script%}

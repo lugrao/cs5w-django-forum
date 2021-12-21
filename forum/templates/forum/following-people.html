@@ -15,7 +15,7 @@
             </ul>
         </div>
 
-        {% if posts %}
+        {% if page_obj.object_list %}
             <div id="posts">
                 <h1>Posts from people you follow</h1>
                 {% include "forum/posts.html" %}

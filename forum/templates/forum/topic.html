@@ -27,8 +27,10 @@
             <p class="new-post"><a href="{% url 'new_post' topic.name %}">New post</a></p>
         {% endif %}
 
-        {% if posts %}    
+        {% if page_obj.object_list %}
             {% include "forum/posts.html" %}
+        {% else %}
+            <p><b>No posts</b> yet.</p>
         {% endif %}
     </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "forum/layout.html" %}
 {% load static %}
 {% block body %}
-    {% if posts %}
+    {% if page_obj.object_list %}
         <div id="topics">
             <h1>All posts from all topics</h1>
             {% include "forum/posts.html" %}

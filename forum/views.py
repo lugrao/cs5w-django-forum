@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from .models import User, Topic, Post, Comment, Follow_User, Follow_Topic, Like_Post, Like_Comment
 from .util import parse_comments, parse_posts, parse_topics
@@ -102,10 +103,17 @@ def topic(request, topic_name):
         except KeyError:
             pass
 
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/topic.html", {
         "topic": topic,
         "posts": posts,
-        "user_is_follower": user_is_follower
+        "user_is_follower": user_is_follower,
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 
@@ -203,8 +211,15 @@ def following_topics(request):
     all_posts = Post.objects.filter(
         topic__in=[follow.following for follow in topics_following]).order_by("-timestamp").all()
     posts = parse_posts(all_posts, request.user)
+
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/following-topics.html", {
-        "posts": posts
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 
@@ -214,9 +229,15 @@ def following_people(request):
     all_posts = Post.objects.filter(
         author__in=[follow.following for follow in users_following]).order_by("-timestamp").all()
     posts = parse_posts(all_posts, request.user)
-    # print(len(all_posts[0].comments.all()))
+
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/following-people.html", {
-        "posts": posts
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 
@@ -228,8 +249,14 @@ def liked_posts(request):
         posts.append(like.post)
     posts = parse_posts(posts, request.user)
 
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/liked-posts.html", {
-        "posts": posts
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 
@@ -240,8 +267,16 @@ def liked_comments(request):
     for like in liked_comments:
         comments.append(like.comment)
     comments = parse_comments(comments, request.user)
+
+    # Paginator
+    paginator = Paginator(comments, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/liked-comments.html", {
         "page": "liked_comments",
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1)),
         "comments": comments
     })
 
@@ -249,8 +284,15 @@ def liked_comments(request):
 def all_posts(request):
     all_posts = Post.objects.order_by("-timestamp").all()
     posts = parse_posts(all_posts, request.user)
+
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/all-posts.html", {
-        "posts": posts
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 

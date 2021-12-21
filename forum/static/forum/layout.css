@@ -1,14 +1,19 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: sans-serif !important;
 }
 
 h1,
 h2,
 h3 {
   text-align: center;
+  font-weight: bold !important;
 }
 
+h1 {
+  font-size: 30px !important;
+  margin: 20px 0 !important;
+}
 .body {
   padding: 15px;
   max-width: 600px;
@@ -20,12 +25,12 @@ ul {
   padding: 0;
 }
 
-nav {
+#navbar {
   background-color: #f0f0f0;
   padding: 10px 35px;
 }
 
-nav > div {
+#navbar > div {
   text-align: center;
   padding-top: 13px;
 }
@@ -35,11 +40,11 @@ nav > div {
   font-size: 20px;
 }
 
-nav a {
+#navbar a {
   text-decoration: none;
 }
 
-nav ul {
+#navbar ul {
   display: flex;
   gap: 30px;
   justify-content: center;

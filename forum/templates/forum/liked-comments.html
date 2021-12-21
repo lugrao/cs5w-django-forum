@@ -15,7 +15,8 @@
                 <li><a href="{% url 'liked_comments' %}"><b>Comments</b></a></li>
             </ul>
         </div>
-        {% if comments %}
+
+        {% if page_obj.object_list %}
             <h1>Comments you liked</h1>
             {% include "forum/comments.html" %}
         {% else %}

@@ -24,7 +24,7 @@
                 </form>
             {% endif %}
         </div>
-        <hr>
+        <!-- <hr> -->
         {% if topics_following %}
             <div id="topics">
                 <h2>Topics following</h2>
@@ -47,6 +47,12 @@
             </div>
         {% endif %}
 
+        {% if page_obj.object_list %}
+            <div id="posts">
+                <h2>Posts</h2>
+                {% include "forum/posts.html" %}
+            </div>
+        {% endif %}
         </ul>
     </section>
     {% endif %}

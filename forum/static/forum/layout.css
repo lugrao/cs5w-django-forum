@@ -14,6 +14,11 @@ h1 {
   font-size: 30px !important;
   margin: 20px 0 !important;
 }
+
+h2 {
+  font-size: 26px !important;
+}
+
 .body {
   padding: 15px;
   max-width: 600px;

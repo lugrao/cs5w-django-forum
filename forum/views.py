@@ -196,12 +196,27 @@ def profile(request, username):
 
     topics_following = profile_user.topics_following.all()
     users_following = profile_user.users_following.all()
+
+    all_posts = profile_user.posts.order_by("-timestamp").all()
+    posts = parse_posts(all_posts, request.user)
+
+    # Paginator
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # return render(request, "forum/following-topics.html", {
+    #     "page_obj": page_obj,
+    #     "pages": list(range(1, paginator.num_pages + 1))
+    # })
+
     return render(request, "forum/profile.html", {
         "profile_user": profile_user,
         "topics_following": topics_following,
         "users_following": users_following,
         "user_is_follower": user_is_follower,
-
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1))
     })
 
 

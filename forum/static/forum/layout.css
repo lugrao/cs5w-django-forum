@@ -51,8 +51,12 @@ ul {
 
 #navbar ul {
   display: flex;
-  gap: 30px;
+  flex-wrap: wrap;
   justify-content: center;
+}
+
+#navbar ul > li {
+  padding: 5px 15px;
 }
 
 #logged-in-as {

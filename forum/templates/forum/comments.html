@@ -21,7 +21,7 @@
                 <div class="comment-right">
                     <span class="like">
                         {% if user.is_authenticated %}
-                            <span class="like-button" data-id="{{ comment.id }}" data-liked="{{ comment.liked_by_user }}" data-likes="{{ comment.likes }}" data-likedobject="comment" data-page="liked-comments">
+                            <span class="like-button" data-id="{{ comment.id }}" data-liked="{{ comment.liked_by_user }}" data-likes="{{ comment.likes }}" data-likedobject="comment" data-page="{{ page }}">
                                 {% if comment.liked_by_user %}
                                     ❤️
                                 {% else %}

@@ -152,11 +152,18 @@ def post(request, post_id):
         except KeyError:
             return HttpResponseRedirect(request.path_info)
 
+    # Paginator
+    paginator = Paginator(comments, 100)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "forum/post.html", {
         "post": post,
         "likes": len(post.likes.all()),
         "liked_by_user": liked_by_user,
-        "comments": comments
+        "comments": comments,
+        "page_obj": page_obj,
+        "pages": list(range(1, paginator.num_pages + 1)),
     })
 
 
@@ -204,11 +211,6 @@ def profile(request, username):
     paginator = Paginator(posts, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    # return render(request, "forum/following-topics.html", {
-    #     "page_obj": page_obj,
-    #     "pages": list(range(1, paginator.num_pages + 1))
-    # })
 
     return render(request, "forum/profile.html", {
         "profile_user": profile_user,
@@ -270,6 +272,7 @@ def liked_posts(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "forum/liked-posts.html", {
+        "page": "liked_posts",
         "page_obj": page_obj,
         "pages": list(range(1, paginator.num_pages + 1))
     })

@@ -13,7 +13,7 @@
                 <div class="post-left">
                     <span class="like">
                         {% if user.is_authenticated %}
-                            <span class="like-button" data-id="{{ post.id }}" data-liked="{{ post.liked_by_user }}" data-likes="{{ post.likes }}" data-likedobject="post">
+                            <span class="like-button" data-id="{{ post.id }}" data-liked="{{ post.liked_by_user }}" data-likes="{{ post.likes }}" data-likedobject="post" data-page="{{ page }}">
                                 {% if post.liked_by_user %}
                                     ❤️
                                 {% else %}

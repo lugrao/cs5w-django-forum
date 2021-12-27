@@ -40,7 +40,7 @@ function like(button) {
     button.innerText = "❤️"
   }
 
-  if (button.dataset.page == "liked-comments") {
+  if (button.dataset.page == "liked_comments" || button.dataset.page == "liked_posts") {
     document.querySelector(`#${likedObject}-${id}`).classList.add("hidden")
     return
   }

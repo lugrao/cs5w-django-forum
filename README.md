@@ -1,6 +1,6 @@
 # Distinctiveness and Complexity
 
-This project is an internet forum inspired by the good old internet forums, and also by Reddit. It has topics, posts and comments. You can follow topics and you can like posts and comments. Also you can create them. As a user, you can also be followed by other users and follow them back. If you don't want to create an account, you can just surf the site, from topic to topic and post to post.
+This project is an internet forum inspired by the good old internet forums, and also by Reddit. It has topics, posts and comments. You can create a user account and follow topics and other users, and you can write and like both posts and comments. If you don't want to create an account, you can just view the site's content.
 
 This is not a social network because it is a forum. It might have similarities with Project 4, but this one is more complex. It has more features, more models, more CSS, more of everything.
 

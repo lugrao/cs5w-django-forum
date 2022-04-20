@@ -6,9 +6,12 @@
 {% endblock %}
 
 {% block body %}
-    {% if topics %}
-        <div id="topics">
-            <h1>Topics</h1>
+    <div id="topics">
+        <h1>Topics</h1>
+        {% if user.is_authenticated%}
+            <p class="new-topic"><a href="{% url 'new_topic' %}">New topic</a></p>
+        {% endif %}
+        {% if topics %}
             <ul>
                 {% for topic in topics %}
                     <li class="topic-container">
@@ -23,6 +26,8 @@
                     </li>
                 {% endfor %}
             </ul>
-        </div>
-    {% endif %}
+        {% else %}
+            <p><b>No topics</b> yet.</p>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -14,13 +14,13 @@ Functions:
 
 `index`: Renders `index.html` with all the topics that were created.
 
-`login_view`: Renders `login.html` and lets the user log in, asking them for their username and password.
+`login_view`: Renders `login.html` and lets the user log in, asking for his/her username and password.
 
 `logout_view`: Logs out the user and renders `index.html`.
 
 `register`: Renders `register.html` and lets the user register, asking them for a username, a password and an email. Saves the new user data into the database.
 
-`topic`: Renders `topic.html` and shows the selected topic with all its posts. Allows user to follow or unfollow topic.
+`topic`: Renders `topic.html` and shows the selected topic with all its posts. Allows user to follow or unfollow the topic.
 
 `post`: Show selected post with all its comments. Allows user to like and unlike the post and the comments. Allows user to post comments.
 
@@ -36,13 +36,15 @@ Functions:
 
 `all_posts`: Renders `all-postst.html` and shows all posts from all topics.
 
-`new_post`: Renders `new-post.html` and shows a form for the user to fill in order to post a comment. Saves the comment into the database.
+`new_topic`: Renders `new-topic.html`, showing a form that allows the user to create a new topic. Saves the new topic into the database and redirects to that topic's page.
+
+`new_post`: Renders `new-post.html`, showing a form that allows the user to create a new post. Saves the new post into the database and redirects to the topic's page.
 
 `edit_post`: Saves the new version of an existing post, modified by the user.
 
 `delete_post`: Deletes the selected post.
 
-`like`: Creates a new Like_Comment or Like_Post and saves it.
+`like`: Handle likes for comments and posts, saving them into the database or deleting them.
 
 ## util.py
 
@@ -96,6 +98,8 @@ Paths:
 
 `liked_comments` shows a page with all the comments a logged in users has liked.
 
+`new_topic` shows the new topic page. When a new topic is created, redirects to that topic's page.
+
 `new_post` shows the new post page. Receives a post ID as an argument. When a post is submitted, redirects to the topic page.
 
 `edit_post` sends a request to the database for editing a post. Receives a post ID as an argument.
@@ -126,7 +130,9 @@ Paths:
 
 `login.html` shows the login view.
 
-`new-post.html` shows form to post a new post.
+`new-post.html` shows the form to post a new post.
+
+`new-topic.html` shows the form to create a new topic.
 
 `post.html` shows a post with its comments. Uses `comments.html`.
 

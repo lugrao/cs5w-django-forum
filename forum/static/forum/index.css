@@ -35,6 +35,11 @@
   color: #5e5e5e;
 }
 
+.new-topic {
+  font-size: 20px;
+  padding-top: 15px;
+}
+
 @media (max-width: 450px) {
   .topic-container div {
     width: 50%;

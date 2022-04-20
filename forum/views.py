@@ -314,6 +314,34 @@ def all_posts(request):
     })
 
 
+def new_topic(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            # Validate form
+            name = request.POST["name"]
+            if not name or len(name) > 120:
+                return render(request, "forum/new-post.html", {
+                    "message": "Topic name must have more than 0 characters and less than 121."
+                })
+            description = request.POST["description"]
+            if not description or len(description) > 1000:
+                return render(request, "forum/new-topic.html", {
+                    "message": "Description must have more than 0 characters and less than 1001."
+                })
+
+            # Save new topic
+            creator = User.objects.get(id=request.user.id)
+            new_topic = Topic(creator=creator, name=name,
+                              description=description)
+            new_topic.save()
+            return HttpResponseRedirect(reverse("topic", kwargs={"topic_name": name}))
+        else:
+            return render(request, "forum/new-topic.html", {
+                "message": "You must be logged in to create a new topic."
+            })
+    return render(request, "forum/new-topic.html")
+
+
 def new_post(request, topic_name):
     # Check if topic exists
     try:

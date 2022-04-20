@@ -1,0 +1,19 @@
+{% extends "forum/layout.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'forum/form.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1>New topic</h1>
+    <h2>{{ topic_name }}</h2>
+    {% if message %}
+        <p class="error">{{ message }}</p>
+    {% endif %}
+    <form id="new-post" action="{% url 'new_topic' %}" method="post">
+        {% csrf_token %}
+        <input name="name" type="text" placeholder="Topic name">
+        <textarea name="description" cols="30" rows="10" placeholder="Description"></textarea>
+        <input class="submit-button" type="submit" value="Submit">
+    </form>
+{% endblock %}
